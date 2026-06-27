@@ -2,7 +2,7 @@
   "name": "treehouse",
   "displayName": "Treehouse",
   "description": "Create, reopen, and remove Git worktrees from VS Code across local and SSH-backed targets.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "publisher": "joelwohlhauser",
   "repository": {
