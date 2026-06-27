@@ -1,6 +1,7 @@
 # Treehouse
 
 [![Install from VS Code Marketplace](https://img.shields.io/badge/VS%20Code%20Marketplace-Install-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=joelwohlhauser.treehouse)
+[![Install for Cursor](https://img.shields.io/badge/Cursor-Install-111111)](https://open-vsx.org/extension/joelwohlhauser/treehouse)
 
 Treehouse exists to make parallel development practical.
 
