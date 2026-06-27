@@ -4,6 +4,8 @@ const { getAppPreviewState } = require("./app-preview");
 const { listRunningDevServers } = require("./dev-servers");
 
 class DevServersProvider {
+  [key: string]: any;
+
   constructor(output) {
     this.output = output;
     this._onDidChangeTreeData = new vscode.EventEmitter();

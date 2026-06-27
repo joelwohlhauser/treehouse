@@ -4,6 +4,8 @@ const { getConfig } = require("./config");
 const { loadAssignedLinearIssues } = require("./linear-commands");
 
 class LinearAssignedIssuesProvider {
+  [key: string]: any;
+
   constructor(output) {
     this.output = output;
     this._onDidChangeTreeData = new vscode.EventEmitter();

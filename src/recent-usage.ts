@@ -23,7 +23,7 @@ async function recordRepositoryUsed(context, repository) {
   await context.globalState.update(REPOSITORY_USAGE_KEY, usageHistory);
 }
 
-function sortRepositoriesByUsage(repositories, usageHistory = {}) {
+function sortRepositoriesByUsage(repositories, usageHistory: any = {}) {
   return repositories.slice().sort((left, right) => {
     const leftUsedAt = Number(usageHistory[getRepositoryUsageKey(left)] || 0);
     const rightUsedAt = Number(usageHistory[getRepositoryUsageKey(right)] || 0);

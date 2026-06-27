@@ -9,7 +9,7 @@ const { getShellInvocation, shellQuote } = require("./shell");
 const { createTargetAdapter } = require("./target-adapters");
 const { getTargetLabel, tryGetCurrentWorkspaceLocation } = require("./targets");
 
-async function openCodingAgentInTerminal(prompt, options = {}, output) {
+async function openCodingAgentInTerminal(prompt, options: any = {}, output) {
   const execution = await resolveCodingAgentExecution(prompt, options);
   const { command, cwd } = execution;
 
@@ -38,7 +38,7 @@ async function openCodingAgentInTerminal(prompt, options = {}, output) {
   terminal.sendText(command, true);
 }
 
-async function runCodingAgentInBackground(prompt, options = {}, output) {
+async function runCodingAgentInBackground(prompt, options: any = {}, output) {
   const execution = await resolveCodingAgentExecution(prompt, options);
   const { command, cwd, trimmedPrompt } = execution;
   const progressTitle = String(options.progressTitle || "Running coding agent").trim();
@@ -121,7 +121,7 @@ async function runTerminalCommandInBackground(terminal, command, token, output) 
   });
 }
 
-async function resolveCodingAgentExecution(prompt, options = {}) {
+async function resolveCodingAgentExecution(prompt, options: any = {}) {
   const trimmedPrompt = String(prompt || "").trim();
   if (!trimmedPrompt) {
     throw new Error("Coding agent prompt cannot be empty.");

@@ -22,7 +22,7 @@ function getExecutableToken(commandPrefix, settingName = "command") {
   return parseCommandPrefix(commandPrefix, settingName).token;
 }
 
-async function resolveCommandForTarget(adapter, commandPrefix, cwd, options = {}) {
+async function resolveCommandForTarget(adapter, commandPrefix, cwd, options: any = {}) {
   const settingName = options.settingName || "command";
   const parsed = parseCommandPrefix(commandPrefix, settingName);
   const commandOptions = { ...options };

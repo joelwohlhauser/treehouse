@@ -14,6 +14,8 @@ const { getTargetLabel, getTargetPathModule, isRunningOnCurrentSshTarget } = req
 const ENV_SEARCH_SKIP_ENTRIES = new Set([".git", ".next", ".turbo", "dist", "build", "coverage", "node_modules"]);
 
 class BaseTargetAdapter {
+  [key: string]: any;
+
   constructor(target) {
     this.target = target;
     this.path = getTargetPathModule(target);
@@ -23,7 +25,7 @@ class BaseTargetAdapter {
     return getTargetLabel(this.target);
   }
 
-  async ensureCommandAvailable(commandName, cwd, options = {}) {
+  async ensureCommandAvailable(commandName, cwd, options: any = {}) {
     if (this.target.type === "ssh") {
       return ensureRemoteCommandAvailable(this.target.sshHost, commandName, cwd, options);
     }
@@ -31,7 +33,7 @@ class BaseTargetAdapter {
     return ensureLocalCommandAvailable(commandName, cwd, options);
   }
 
-  async runGit(cwd, args, output, options = {}) {
+  async runGit(cwd, args, output = undefined, options: any = {}) {
     return this.runCommand(buildGitCommand(args), cwd, output, options);
   }
 
@@ -118,7 +120,7 @@ class LocalTargetAdapter extends BaseTargetAdapter {
     return this.buildRepoDescriptor(repoName, repoPath, Date.now(), originUrl);
   }
 
-  async runCommand(command, cwd, output, options = {}) {
+  async runCommand(command, cwd = undefined, output = undefined, options: any = {}) {
     return runLocalShellCommand(command, cwd, output, {
       ...options,
       label: this.getTargetLabel()
@@ -279,7 +281,7 @@ class SshTargetAdapter extends BaseTargetAdapter {
     return this.buildRepoDescriptor(repoName, repoPath, Date.now(), originUrl);
   }
 
-  async runCommand(command, cwd, output, options = {}) {
+  async runCommand(command, cwd = undefined, output = undefined, options: any = {}) {
     if (isRunningOnCurrentSshTarget(this.target)) {
       return runLocalShellCommand(command, cwd, output, {
         ...options,
@@ -293,7 +295,7 @@ class SshTargetAdapter extends BaseTargetAdapter {
     });
   }
 
-  async ensureCommandAvailable(commandName, cwd, options = {}) {
+  async ensureCommandAvailable(commandName, cwd, options: any = {}) {
     if (isRunningOnCurrentSshTarget(this.target)) {
       return ensureLocalCommandAvailable(commandName, cwd, options);
     }

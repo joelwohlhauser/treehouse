@@ -39,7 +39,7 @@ function getShellInvocation(command) {
   };
 }
 
-async function runLocalShellCommand(command, cwd, output, options = {}) {
+async function runLocalShellCommand(command, cwd, output, options: any = {}) {
   const commandPrefix = options.label ? `[${options.label}] ` : "";
   if (output) {
     output.appendLine(`${commandPrefix}$ ${command}`);
@@ -111,7 +111,7 @@ function buildSshCommand(sshHost, command, cwd) {
   return `ssh ${shellQuote(sshHost)} ${shellQuote(remoteCommand)}`;
 }
 
-async function runSshShellCommand(sshHost, command, cwd, output, options = {}) {
+async function runSshShellCommand(sshHost, command, cwd, output, options: any = {}) {
   return runLocalShellCommand(buildSshCommand(sshHost, command, cwd), undefined, output, {
     ...options,
     label: options.label || sshHost
@@ -122,7 +122,7 @@ function buildGitCommand(args) {
   return ["git", ...args.map(shellQuote)].join(" ");
 }
 
-async function runGit(cwd, args, output, options = {}) {
+async function runGit(cwd, args, output, options: any = {}) {
   return runLocalShellCommand(buildGitCommand(args), cwd, output, options);
 }
 

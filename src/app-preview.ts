@@ -26,6 +26,7 @@ const PREVIEW_ACTION_OPEN_VSCODE_BROWSER = "open-vscode-browser";
 const PREVIEW_ACTION_OPEN_TERMINAL = "open-terminal";
 const PREVIEW_ACTION_RESTART = "restart";
 const PREVIEW_ACTION_STOP = "stop";
+const INTEGRATED_BROWSER_SCHEMES = new Set(["vscode-browser", "vscode-webview"]);
 const previewSessions = new Map();
 const pendingPreviewActions = new Map();
 const remotePreviewRecoveryPromises = new Map();
@@ -79,7 +80,7 @@ async function openAppPreviewInVsCodeBrowser(output) {
   return openAppPreviewWithTarget(output, "vscodeBrowser");
 }
 
-async function openAppPreviewWithTarget(output, openTarget) {
+async function openAppPreviewWithTarget(output, openTarget = undefined) {
   const pendingSessionKey = markCurrentWorkspacePreviewActionPending(getAppPreviewPendingAction(openTarget));
   try {
     const { hadExistingSession, session, startedServer, workspace } = await ensurePreviewSession(output);
@@ -259,7 +260,7 @@ async function createPreviewSession(workspace, output) {
   return createPreviewSessionWithOptions(workspace, output);
 }
 
-async function createPreviewSessionWithOptions(workspace, output, options = {}) {
+async function createPreviewSessionWithOptions(workspace, output, options: any = {}) {
   const previewTarget =
     options.previewTarget ||
     (await resolvePreviewTarget(workspace, output, {
@@ -310,7 +311,7 @@ async function createPreviewSessionWithOptions(workspace, output, options = {}) 
   return session;
 }
 
-async function resolvePreviewTarget(workspace, output, options = {}) {
+async function resolvePreviewTarget(workspace, output, options: any = {}) {
   const workspaceInfo = await inspectWorkspacePackages(workspace);
   const runnableWorkspaces = workspaceInfo.workspaces.filter((entry) => entry.hasDevScript);
   const monorepoCandidates = workspaceInfo.isMonorepo ? runnableWorkspaces : [];
@@ -387,7 +388,7 @@ function getDefaultPreviewCandidate(candidates) {
   return candidates.find((candidate) => Number.isInteger(candidate.port)) || candidates[0];
 }
 
-async function promptForPreviewTarget(candidates, options = {}) {
+async function promptForPreviewTarget(candidates, options: any = {}) {
   const items = candidates.map((candidate) => ({
     label: candidate.displayName,
     description: candidate.relativePath,
@@ -669,7 +670,7 @@ function getExistingSession(sessionKey) {
   return session;
 }
 
-function updatePreviewSessionStatus(session, status) {
+function updatePreviewSessionStatus(session, status = undefined) {
   session.status = status;
   refreshAppPreviewStatusBar();
 }
@@ -1193,7 +1194,7 @@ async function revealExistingBrowserTab(tab) {
   const uri = getBrowserTabUri(tab);
   if (uri) {
     try {
-      if (input instanceof vscode.TabInputCustom && input.viewType && uri.scheme !== INTEGRATED_BROWSER_SCHEME) {
+      if (input instanceof vscode.TabInputCustom && input.viewType && !INTEGRATED_BROWSER_SCHEMES.has(uri.scheme)) {
         await vscode.commands.executeCommand("vscode.openWith", uri, input.viewType, {
           preview: false,
           preserveFocus: false
@@ -1443,7 +1444,7 @@ async function waitForShellIntegration(terminal) {
 }
 
 async function waitForExecutionReady(execution, terminal, port) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     let settled = false;
     let outputBuffer = "";
 
@@ -1507,7 +1508,7 @@ async function waitForExecutionReady(execution, terminal, port) {
   });
 }
 
-async function waitForBrowserTab(previousActiveTab) {
+async function waitForBrowserTab(previousActiveTab): Promise<any> {
   const currentActiveTab = vscode.window.tabGroups.activeTabGroup.activeTab;
   if (currentActiveTab && currentActiveTab !== previousActiveTab) {
     return {
@@ -1865,7 +1866,7 @@ async function recoverCurrentRemotePreviewSession(output) {
   return recoverRemotePreviewSession(workspace, output, { suppressErrors: true });
 }
 
-async function recoverRemotePreviewSession(workspace, output, options = {}) {
+async function recoverRemotePreviewSession(workspace, output, options: any = {}) {
   if (!workspace || workspace.location?.target?.type !== "ssh") {
     return undefined;
   }
@@ -1921,7 +1922,7 @@ async function recoverRemotePreviewSession(workspace, output, options = {}) {
   return handleRemotePreviewRecoveryResult(trackedRecoveryPromise, output, options);
 }
 
-async function handleRemotePreviewRecoveryResult(recoveryPromise, output, options = {}) {
+async function handleRemotePreviewRecoveryResult(recoveryPromise, output, options: any = {}) {
   try {
     return await recoveryPromise;
   } catch (error) {
@@ -2020,7 +2021,7 @@ function getRemotePreviewSessionName(workspace) {
   return `treehouse-dev-${hash}`;
 }
 
-async function findExistingSshPortForward(target, remotePort, localPort) {
+async function findExistingSshPortForward(target, remotePort, localPort = undefined) {
   let lsofOutput;
   try {
     const portFilter = Number.isInteger(localPort) ? `:${Number(localPort)}` : "";

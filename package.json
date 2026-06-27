@@ -56,7 +56,16 @@
     "onCommand:treehouse.killCurrentWorktree",
     "onCommand:treehouse.renameCurrentWorktree"
   ],
-  "main": "./extension.js",
+  "main": "./dist/extension.js",
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "compile": "npm run clean && tsc -p .",
+    "build": "npm run compile",
+    "typecheck": "tsc -p . --noEmit",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
   "contributes": {
     "commands": [
       {
@@ -526,5 +535,11 @@
         }
       }
     }
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.130",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^6.0.3"
   }
 }

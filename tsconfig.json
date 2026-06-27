@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "ES2021"
+    ],
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "moduleDetection": "force",
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "types": [
+      "node",
+      "vscode"
+    ]
+  },
+  "include": [
+    "extension.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".vscode-test"
+  ]
+}

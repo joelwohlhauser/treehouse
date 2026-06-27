@@ -9,6 +9,8 @@ const { getCurrentWorkspaceLocation, getTargetLabel } = require("./targets");
 const TERMINAL_VIEW_ID = "treehouse.terminal";
 
 class TreehouseTerminalProvider {
+  [key: string]: any;
+
   constructor(output) {
     this.output = output;
     this.terminal = null;

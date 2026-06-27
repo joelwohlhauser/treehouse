@@ -150,7 +150,7 @@ function getLocalTarget(config = getConfig()) {
   return config.targets.find((target) => target.type === "local") || null;
 }
 
-function normalizeTargets(value, legacyRoots = {}) {
+function normalizeTargets(value, legacyRoots: any = {}) {
   const explicitTargets = Array.isArray(value) ? value : [];
   const normalizedTargets = [];
   let localTarget = null;
@@ -214,7 +214,7 @@ function normalizeTarget(entry) {
     return null;
   }
 
-  const normalizedTarget = {
+  const normalizedTarget: any = {
     id: type === "local" ? DEFAULT_LOCAL_TARGET.id : normalizedId,
     type,
     label: String(entry.label || (type === "local" ? DEFAULT_LOCAL_TARGET.label : normalizedId)).trim(),
@@ -300,7 +300,7 @@ function normalizeStringMap(value) {
   return Object.fromEntries(
     Object.entries(value)
       .filter(([key, entryValue]) => key && typeof entryValue === "string" && entryValue.trim())
-      .map(([key, entryValue]) => [String(key).trim(), entryValue.trim()])
+      .map(([key, entryValue]) => [String(key).trim(), String(entryValue).trim()])
   );
 }
 

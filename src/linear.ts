@@ -198,7 +198,7 @@ async function postGraphQL(apiKey, body) {
 
   const payload = JSON.stringify(body);
 
-  return new Promise((resolve, reject) => {
+  return new Promise<any>((resolve, reject) => {
     const request = https.request(
       "https://api.linear.app/graphql",
       {

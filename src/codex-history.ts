@@ -16,7 +16,7 @@ const OPENAI_CODEX_URI_SCHEME = "openai-codex";
 const OPENAI_CODEX_URI_AUTHORITY = "route";
 const SESSION_META_SCAN_LINE_LIMIT = 40;
 
-async function openLatestCodexChatForCurrentWorkspace(output, options = {}) {
+async function openLatestCodexChatForCurrentWorkspace(output, options: any = {}) {
   const location = tryGetCurrentWorkspaceLocation();
   if (!location) {
     if (options.showNoSessionMessage) {
@@ -397,7 +397,7 @@ done | sort -k1,1nr -k2,2nr | head -n 1
 `;
 }
 
-async function openCodexConversation(conversationId, target, output, options = {}) {
+async function openCodexConversation(conversationId, target, output, options: any = {}) {
   const safeConversationId = normalizeCodexConversationId(conversationId);
   if (!safeConversationId) {
     throw new Error("Latest Codex session does not have a valid conversation id.");

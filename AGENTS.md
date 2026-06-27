@@ -1,0 +1,1 @@
+Always build the project after making changes. Always build it after changes so we never forget to build it.

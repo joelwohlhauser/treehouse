@@ -5,6 +5,16 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      release:
+        description: Version bump
+        required: true
+        default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 permissions:
   id-token: write
@@ -32,12 +42,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check JavaScript syntax
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Configure release commit author
         run: |
-          node --check extension.js
-          for file in src/*.js; do
-            node --check "$file"
-          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        env:
+          RELEASE_TYPE: ${{ github.event_name == 'workflow_dispatch' && inputs.release || 'patch' }}
+        run: |
+          npm version "$RELEASE_TYPE" -m "chore: release %s [skip ci]"
 
       - name: Package extension
         run: npx --yes @vscode/vsce@3.9.2 package --no-dependencies --out /tmp/treehouse.vsix
@@ -49,18 +66,22 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Configure release commit author
+      - name: Publish to Visual Studio Marketplace
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Publish extension
-        run: |
-          npx --yes @vscode/vsce@3.9.2 publish patch \
+          npx --yes @vscode/vsce@3.9.2 publish \
+            --packagePath /tmp/treehouse.vsix \
             --azure-credential \
-            --no-dependencies \
-            --skip-duplicate \
-            -m "chore: release %s [skip ci]"
+            --skip-duplicate
+
+      - name: Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          npx --yes ovsx@1.0.2 \
+            --pat "$OVSX_PAT" \
+            publish \
+            --packagePath /tmp/treehouse.vsix \
+            --skip-duplicate
 
       - name: Push release commit and tag
         run: git push origin HEAD:main --follow-tags

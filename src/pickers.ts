@@ -4,7 +4,7 @@ const { sortRepositoriesByUsage } = require("./recent-usage");
 const { inferRepoNameFromCloneUrl, isLikelyCloneUrl } = require("./target-adapters");
 const { getTargetLabel } = require("./targets");
 
-async function pickTarget(targets, options = {}) {
+async function pickTarget(targets, options: any = {}) {
   if (!Array.isArray(targets) || !targets.length) {
     return null;
   }

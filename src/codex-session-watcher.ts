@@ -26,6 +26,8 @@ function startCodexSessionWatcher(context, output) {
 }
 
 class CodexSessionWatcher {
+  [key: string]: any;
+
   constructor(output) {
     this.output = output;
     this.disposables = [];
@@ -105,7 +107,7 @@ class CodexSessionWatcher {
     }
   }
 
-  async poll(options = {}) {
+  async poll(options: any = {}) {
     if (this.pollInFlight) {
       return;
     }
@@ -379,11 +381,11 @@ class CodexSessionWatcher {
     }
   }
 
-  async updateTitleStatus(workspacePaths = getCurrentWorkspacePaths(), options = {}) {
+  async updateTitleStatus(workspacePaths = getCurrentWorkspacePaths(), options: any = {}) {
     await this.setTitleStatus(getTitleStatusLabel(this.sessions.values(), workspacePaths), options);
   }
 
-  async setTitleStatus(status) {
+  async setTitleStatus(status, _options = undefined) {
     try {
       // Re-send and re-register even when unchanged; VS Code can drop title variables after titlebar churn.
       await this.ensureTitleVariableRegistered();

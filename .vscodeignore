@@ -7,12 +7,16 @@
 .vscode/**
 .vscode-test/**
 node_modules/**
-dist/**
 build/**
 coverage/**
+src/**
+extension.ts
+tsconfig.json
 *.vsix
 *.log
 **/*.svg
 .DS_Store
 .env
 .env.*
+AGENTS.md
+CLAUDE.md

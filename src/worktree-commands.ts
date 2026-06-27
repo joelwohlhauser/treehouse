@@ -166,7 +166,7 @@ async function loadRepositoriesForTargets(targets, adapters, output) {
 
 const TERMINAL_CLOSE_TIMEOUT_MS = 5000;
 
-async function closeWindowTerminals(output, options = {}) {
+async function closeWindowTerminals(output, options: any = {}) {
   const terminals = [...vscode.window.terminals];
   if (!terminals.length) {
     return;
@@ -175,11 +175,11 @@ async function closeWindowTerminals(output, options = {}) {
   const failOnTimeout = options.failOnTimeout !== false;
   output.appendLine(`Closing ${terminals.length} terminal(s) before removing worktree`);
 
-  await new Promise((resolve, reject) => {
+  await new Promise<void>((resolve, reject) => {
     const pending = new Set(terminals);
     let settled = false;
 
-    const finish = (error) => {
+    const finish = (error = undefined) => {
       if (settled) {
         return;
       }

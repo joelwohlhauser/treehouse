@@ -1,5 +1,7 @@
 # Treehouse
 
+[![Install from VS Code Marketplace](https://img.shields.io/badge/VS%20Code%20Marketplace-Install-007ACC?logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=joelwohlhauser.treehouse)
+
 Treehouse exists to make parallel development practical.
 
 With coding agents, it is normal to have multiple pieces of work moving at the same time: a feature branch, a bugfix, a review follow-up, and sometimes an urgent issue that interrupts everything else. Doing that in a single checkout is painful. You end up stashing, switching branches, restarting dev servers, and losing context.

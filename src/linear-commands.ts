@@ -170,7 +170,7 @@ async function pickExistingIssueWorktree(issue, matches) {
   return pick?.entry || null;
 }
 
-async function pickTargetRepositoryForIssue(repositories, issue, options = {}) {
+async function pickTargetRepositoryForIssue(repositories, issue, options: any = {}) {
   const mappedRepoName = getMappedRepositoryNameForIssue(issue);
   if (mappedRepoName) {
     const mappedRepositories = repositories.filter((repository) => repository.repoName === mappedRepoName);

@@ -7,6 +7,8 @@ const { fetchLinearIssue, fetchLinearIssueUrl } = require("./linear");
 const LINEAR_ISSUE_DOCUMENT_SCHEME = "treehouse-linear-issue";
 
 class LinearIssueDocumentProvider {
+  [key: string]: any;
+
   constructor() {
     this.documents = new Map();
     this._onDidChange = new vscode.EventEmitter();
