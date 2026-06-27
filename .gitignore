@@ -1,0 +1,32 @@
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+.vscode-test/
+*.vsix
+
+# Logs and local caches
+*.log
+.DS_Store
+.npm/
+.yarn/
+.pnpm-store/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+.npmrc
+.netrc
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+
+# Personal editor settings can contain machine-scoped extension config.
+.vscode/settings.json
+*.code-workspace

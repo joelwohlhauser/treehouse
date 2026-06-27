@@ -1,0 +1,66 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+
+concurrency:
+  group: marketplace-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check extension.js
+          for file in src/*.js; do
+            node --check "$file"
+          done
+
+      - name: Package extension
+        run: npx --yes @vscode/vsce@3.9.2 package --no-dependencies --out /tmp/treehouse.vsix
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Configure release commit author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Publish extension
+        run: |
+          npx --yes @vscode/vsce@3.9.2 publish patch \
+            --azure-credential \
+            --no-dependencies \
+            --skip-duplicate \
+            -m "chore: release %s [skip ci]"
+
+      - name: Push release commit and tag
+        run: git push origin HEAD:main --follow-tags

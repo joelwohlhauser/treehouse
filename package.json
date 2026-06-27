@@ -1,0 +1,530 @@
+{
+  "name": "treehouse",
+  "displayName": "Treehouse",
+  "description": "Create, reopen, and remove Git worktrees from VS Code across local and SSH-backed targets.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "publisher": "joelwohlhauser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joelwohlhauser/treehouse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joelwohlhauser/treehouse/issues"
+  },
+  "homepage": "https://github.com/joelwohlhauser/treehouse#readme",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onUri",
+    "onView:treehouse.linearAssignedIssues",
+    "onView:treehouse.devServers",
+    "onView:treehouse.terminal",
+    "onCommand:treehouse.openAppPreview",
+    "onCommand:treehouse.openAppPreviewExternalBrowser",
+    "onCommand:treehouse.openAppPreviewInVsCodeBrowser",
+    "onCommand:treehouse.restartAppPreview",
+    "onCommand:treehouse.openDevServerTerminal",
+    "onCommand:treehouse.refreshDevServers",
+    "onCommand:treehouse.openTerminal",
+    "onCommand:treehouse.openLatestCodexChat",
+    "onCommand:treehouse.showCodexSessionStatus",
+    "onCommand:treehouse.startTerminalCodex",
+    "onCommand:treehouse.sendTerminalCommand",
+    "onCommand:treehouse.restartTerminal",
+    "onCommand:treehouse.clearTerminal",
+    "onCommand:treehouse.stopAppPreview",
+    "onCommand:treehouse.setupWorkspace",
+    "onCommand:treehouse.configureLinearApiKey",
+    "onCommand:treehouse.createLinearIssue",
+    "onCommand:treehouse.implementLinearIssue",
+    "onCommand:treehouse.openLinearIssueDetails",
+    "onCommand:treehouse.openLinearSidebarIssue",
+    "onCommand:treehouse.refreshLinearIssues",
+    "onCommand:treehouse.executeAgentSkill",
+    "onCommand:treehouse.commitAndPushCurrentWorkspace",
+    "onCommand:treehouse.killCurrentWorktree",
+    "onCommand:treehouse.renameCurrentWorktree"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "treehouse.openAppPreview",
+        "title": "Treehouse: Open App Preview",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "treehouse.openAppPreviewExternalBrowser",
+        "title": "Treehouse: Open App Preview in Browser",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "treehouse.openAppPreviewInVsCodeBrowser",
+        "title": "Treehouse: Open App Preview in VS Code",
+        "icon": "$(browser)"
+      },
+      {
+        "command": "treehouse.restartAppPreview",
+        "title": "Treehouse: Restart Dev Server",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "treehouse.openDevServerTerminal",
+        "title": "Treehouse: Open Dev Server Terminal",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "treehouse.refreshDevServers",
+        "title": "Treehouse: Refresh Dev Servers",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "treehouse.openTerminal",
+        "title": "Treehouse: Open Terminal",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "treehouse.openLatestCodexChat",
+        "title": "Treehouse: Open Latest Codex Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "treehouse.showCodexSessionStatus",
+        "title": "Treehouse: Show Codex Session Status",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "treehouse.startTerminalCodex",
+        "title": "Treehouse: Start Codex in Terminal",
+        "icon": "$(play)"
+      },
+      {
+        "command": "treehouse.sendTerminalCommand",
+        "title": "Treehouse: Send Terminal Command",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "treehouse.restartTerminal",
+        "title": "Treehouse: Restart Terminal Session",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "treehouse.clearTerminal",
+        "title": "Treehouse: Clear Terminal",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "treehouse.stopAppPreview",
+        "title": "Treehouse: Stop Dev Server",
+        "icon": "$(stop-circle)"
+      },
+      {
+        "command": "treehouse.setupWorkspace",
+        "title": "Treehouse: Create or Open Worktree"
+      },
+      {
+        "command": "treehouse.implementLinearIssue",
+        "title": "Treehouse: Implement Linear Issue"
+      },
+      {
+        "command": "treehouse.openLinearSidebarIssue",
+        "title": "Implement"
+      },
+      {
+        "command": "treehouse.openLinearIssueDetails",
+        "title": "Treehouse: Open Linear Issue Details"
+      },
+      {
+        "command": "treehouse.createLinearIssue",
+        "title": "New Issue",
+        "icon": "$(add)"
+      },
+      {
+        "command": "treehouse.refreshLinearIssues",
+        "title": "Treehouse: Refresh My Linear Issues",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "treehouse.configureLinearApiKey",
+        "title": "Treehouse: Configure Linear API Key"
+      },
+      {
+        "command": "treehouse.executeAgentSkill",
+        "title": "Treehouse: Execute Agent Skill"
+      },
+      {
+        "command": "treehouse.commitAndPushCurrentWorkspace",
+        "title": "Treehouse: Commit and Push"
+      },
+      {
+        "command": "treehouse.killCurrentWorktree",
+        "title": "Treehouse: Delete Current Worktree"
+      },
+      {
+        "command": "treehouse.renameCurrentWorktree",
+        "title": "Treehouse: Rename Current Worktree"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "treehouse",
+          "title": "Treehouse",
+          "icon": "icon.png"
+        }
+      ]
+    },
+    "views": {
+      "treehouse": [
+        {
+          "id": "treehouse.linearAssignedIssues",
+          "name": "My Linear Issues"
+        },
+        {
+          "id": "treehouse.devServers",
+          "name": "Dev Servers"
+        },
+        {
+          "id": "treehouse.terminal",
+          "name": "Terminal"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "treehouse.createLinearIssue",
+          "when": "view == treehouse.linearAssignedIssues",
+          "group": "navigation@1"
+        },
+        {
+          "command": "treehouse.refreshLinearIssues",
+          "when": "view == treehouse.linearAssignedIssues",
+          "group": "navigation@2"
+        },
+        {
+          "command": "treehouse.openAppPreview",
+          "when": "view == treehouse.devServers && treehouse.appPreviewHasWorkspace && !treehouse.appPreviewBusy",
+          "group": "navigation@1"
+        },
+        {
+          "command": "treehouse.restartAppPreview",
+          "when": "view == treehouse.devServers && treehouse.appPreviewRunning && !treehouse.appPreviewBusy",
+          "group": "navigation@2"
+        },
+        {
+          "command": "treehouse.openDevServerTerminal",
+          "when": "view == treehouse.devServers && treehouse.appPreviewRunning && !treehouse.appPreviewBusy",
+          "group": "navigation@3"
+        },
+        {
+          "command": "treehouse.stopAppPreview",
+          "when": "view == treehouse.devServers && treehouse.appPreviewRunning && !treehouse.appPreviewBusy",
+          "group": "navigation@4"
+        },
+        {
+          "command": "treehouse.refreshDevServers",
+          "when": "view == treehouse.devServers",
+          "group": "navigation@5"
+        },
+        {
+          "command": "treehouse.openTerminal",
+          "when": "view == treehouse.terminal",
+          "group": "navigation@1"
+        },
+        {
+          "command": "treehouse.openLatestCodexChat",
+          "when": "view == treehouse.terminal",
+          "group": "navigation@2"
+        },
+        {
+          "command": "treehouse.startTerminalCodex",
+          "when": "view == treehouse.terminal",
+          "group": "navigation@3"
+        },
+        {
+          "command": "treehouse.sendTerminalCommand",
+          "when": "view == treehouse.terminal",
+          "group": "navigation@4"
+        },
+        {
+          "command": "treehouse.clearTerminal",
+          "when": "view == treehouse.terminal",
+          "group": "navigation@5"
+        },
+        {
+          "command": "treehouse.restartTerminal",
+          "when": "view == treehouse.terminal",
+          "group": "navigation@6"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "treehouse.openLinearSidebarIssue",
+          "when": "view == treehouse.linearAssignedIssues && viewItem == linearIssue",
+          "group": "inline"
+        },
+        {
+          "command": "treehouse.openLinearIssueDetails",
+          "when": "view == treehouse.linearAssignedIssues && viewItem == linearIssue",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Treehouse",
+      "properties": {
+        "treehouse.alwaysPromptForTarget": {
+          "type": "boolean",
+          "default": false,
+          "scope": "application",
+          "description": "Whether Treehouse should prompt for the target before showing repositories instead of using the unified picker."
+        },
+        "treehouse.defaultCreateTarget": {
+          "type": "string",
+          "default": "last-used",
+          "scope": "application",
+          "description": "Which target Treehouse should use by default for new clones when the repository picker itself does not already imply a target."
+        },
+        "treehouse.targets": {
+          "type": "array",
+          "scope": "application",
+          "default": [
+            {
+              "id": "local",
+              "type": "local",
+              "label": "Local",
+              "repositoriesRoot": "~/Repositories",
+              "worktreesRoot": "~/Repositories/.worktrees"
+            }
+          ],
+          "description": "Configured Treehouse targets. Local is always available, and SSH targets use your existing ssh host aliases.",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "label",
+              "repositoriesRoot",
+              "worktreesRoot"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "local",
+                  "ssh"
+                ]
+              },
+              "label": {
+                "type": "string"
+              },
+              "sshHost": {
+                "type": "string"
+              },
+              "repositoriesRoot": {
+                "type": "string"
+              },
+              "worktreesRoot": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "treehouse.repositoriesRoot": {
+          "type": "string",
+          "default": "~/Repositories",
+          "markdownDeprecationMessage": "Deprecated. Treehouse now reads local repository roots from `treehouse.targets`.",
+          "description": "Deprecated. Directory containing the primary Git repositories."
+        },
+        "treehouse.worktreesRoot": {
+          "type": "string",
+          "default": "~/Repositories/.worktrees",
+          "markdownDeprecationMessage": "Deprecated. Treehouse now reads local worktree roots from `treehouse.targets`.",
+          "description": "Deprecated. Directory under which managed worktrees are created."
+        },
+        "treehouse.worktreePathTemplate": {
+          "type": "string",
+          "default": "${repo}/${branch}",
+          "description": "Relative folder template under the worktrees root. Supported placeholders: ${repo}, ${branch}, ${sanitizedBranch}."
+        },
+        "treehouse.envFileMode": {
+          "type": "string",
+          "enum": [
+            "link",
+            "copy",
+            "off"
+          ],
+          "default": "link",
+          "markdownDescription": "How `.env` should be added to new worktrees: `link`, `copy`, or `off`."
+        },
+        "treehouse.installDependencies": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether `pnpm i` should run automatically for newly created worktrees."
+        },
+        "treehouse.appPreviewOpenTarget": {
+          "type": "string",
+          "default": "externalBrowser",
+          "enum": [
+            "externalBrowser",
+            "vscodeBrowser"
+          ],
+          "enumDescriptions": [
+            "Open app previews in the system browser.",
+            "Open app previews in VS Code's integrated browser."
+          ],
+          "scope": "window",
+          "description": "Where Treehouse should open app preview URLs."
+        },
+        "treehouse.codingAgentCommand": {
+          "type": "string",
+          "default": "codex",
+          "description": "Shell command prefix used to launch the coding agent. Treehouse appends the implementation prompt as the final argument. Example: `codex` or `claude code`. When a path-like executable is missing on the execution host, Treehouse falls back to its basename on PATH."
+        },
+        "treehouse.codexSessionsRoot": {
+          "type": "string",
+          "default": "~/.codex/sessions",
+          "scope": "window",
+          "description": "Root folder containing Codex session history files. `~` is expanded on the current workspace host."
+        },
+        "treehouse.codexSessionPollIntervalMs": {
+          "type": "number",
+          "default": 2500,
+          "minimum": 1000,
+          "scope": "window",
+          "description": "Polling interval in milliseconds for watching Codex session JSONL files. Treehouse uses polling so this works on SSH hosts and Linux filesystems."
+        },
+        "treehouse.openLatestCodexChatOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "scope": "window",
+          "description": "Whether Treehouse should open the latest Codex chat for the current workspace when the VS Code window starts or reloads."
+        },
+        "treehouse.latestCodexChatOpenTarget": {
+          "type": "string",
+          "default": "sidebar",
+          "enum": [
+            "sidebar",
+            "panel"
+          ],
+          "enumDescriptions": [
+            "Open the conversation through the OpenAI Codex extension sidebar route.",
+            "Open the conversation as an OpenAI Codex custom editor tab."
+          ],
+          "scope": "window",
+          "description": "Where Treehouse should open the latest Codex chat."
+        },
+        "treehouse.commitMessageCodexCommand": {
+          "type": "string",
+          "default": "codex",
+          "scope": "window",
+          "description": "Shell command prefix Treehouse should use to run Codex for commit title generation. Treehouse appends `exec`, read-only automation flags, and the rendered prompt. Example: `codex` or `codex --profile work`. When a path-like executable is missing on the execution host, Treehouse falls back to its basename on PATH."
+        },
+        "treehouse.commitMessagePrompt": {
+          "type": "string",
+          "default": "Generate the final git commit title for the current working tree.\nReturn only the final title.\n\nRules:\n- Treat the current working tree as the candidate commit. Both staged and unstaged changes will be committed together.\n- Write the shortest accurate title that explains why the change exists.\n- Prefer the user-visible or system-level outcome over implementation detail.\n- Use lowercase, no trailing period, and no filler words.\n- If the branch name includes an issue id matching [A-Za-z]+-[0-9]+, prefix the title with that issue id in lowercase followed by \": \".\n- Otherwise use the narrowest accurate semantic prefix: feat:, fix:, refactor:, docs:, test:, or chore:.\n\nContext:\n- Repository root: ${repoPath}\n- Branch name: ${branchName}\n- Branch issue id: ${branchIssueId}\n- Target: ${targetLabel}\n\ngit status --short\n${gitStatus}\n\ngit diff --stat\n${gitDiffStat}\n\ngit diff\n${gitDiff}\n\ngit diff --cached --stat\n${gitCachedDiffStat}\n\ngit diff --cached\n${gitCachedDiff}\n\nuntracked file diffs\n${untrackedDiffs}",
+          "scope": "window",
+          "markdownDescription": "Prompt template used to generate commit titles for `Treehouse: Commit and Push`. Available placeholders: `${repoPath}`, `${branchName}`, `${branchIssueId}`, `${targetLabel}`, `${gitStatus}`, `${gitDiffStat}`, `${gitDiff}`, `${gitCachedDiffStat}`, `${gitCachedDiff}`, and `${untrackedDiffs}`."
+        },
+        "treehouse.commitMessageRequireApproval": {
+          "type": "boolean",
+          "default": false,
+          "scope": "window",
+          "description": "Whether `Treehouse: Commit and Push` should pause for manual review of the generated commit title before committing."
+        },
+        "treehouse.commitAndPushPullRequestMode": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "draft"
+          ],
+          "default": "ready",
+          "scope": "window",
+          "markdownDescription": "Pull request mode used by `Treehouse: Commit and Push` on the first push. `ready` creates a normal PR and `draft` creates a draft PR."
+        },
+        "treehouse.commitAndPushRunCheckoutPullRequestByNumber": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "Whether `Treehouse: Commit and Push` should silently run `gh pr checkout` after successfully creating a new pull request on the branch's first push, so the GitHub Pull Requests extension can detect the active PR without showing its checkout picker."
+        },
+        "treehouse.skillsRoot": {
+          "type": "string",
+          "default": "skills",
+          "description": "Folder containing available agent skills. Relative paths are resolved from the current workspace when possible."
+        },
+        "treehouse.executeSkillsInBackground": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether `Treehouse: Execute Agent Skill` should run the selected skill in the background with a notification instead of opening a terminal editor."
+        },
+        "treehouse.shellCommand": {
+          "type": "string",
+          "default": "",
+          "description": "Optional shell executable Treehouse should use for local commands instead of the current SHELL environment variable."
+        },
+        "treehouse.linearApiKey": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Linear personal API key used to fetch issue details for `Treehouse: Implement Linear Issue`. Stored in local VS Code settings as plain text."
+        },
+        "treehouse.linearAssignedIssueFilters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "Additional filters applied to your assigned Linear issues in the picker and sidebar. Entries are combined with `AND`. Supported fields: `label:\"Today\"`, `state:\"In Progress\"`, `team:\"AI\"`, `project:\"Roadmap\"`, `id:\"AI-123\"`, `title:\"preview\"`, or free-text search."
+        },
+        "treehouse.linearAssignedIssuesGroupBy": {
+          "type": "string",
+          "enum": [
+            "status",
+            "project"
+          ],
+          "default": "status",
+          "markdownDescription": "How the Treehouse Linear sidebar groups your assigned issues."
+        },
+        "treehouse.linearTeamRepositoryMap": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string"
+          },
+          "markdownDescription": "Map Linear team keys or names to repository folder names. Example: `{ \"SNACKS\": \"waffle-maker\" }`."
+        },
+        "treehouse.linearSetIssueInProgress": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether `Treehouse: Implement Linear Issue` should move the selected Linear issue into an in-progress state before opening its worktree."
+        },
+        "treehouse.linearStartCodingAgent": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether `Treehouse: Implement Linear Issue` should automatically open a terminal editor tab and start the configured coding agent after opening the worktree."
+        },
+        "treehouse.openInNewWindow": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether Treehouse should prefer opening worktrees in a new VS Code window when the current window is empty. Treehouse always uses a new window when the current window already has a folder open."
+        }
+      }
+    }
+  }
+}
